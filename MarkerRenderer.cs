@@ -20,8 +20,8 @@ namespace ProgressiveScroll
 
 		public ColorSet Colors { get; set; }
 
-		private static readonly int markerStartOffset = -3;
-		private static readonly int markerEndOffset = 2;
+		private static readonly int markerStartOffset = -1;  //-3
+		private static readonly int markerEndOffset = 0;  //2
 
 		private static int _bookmarkType = 3;
 
@@ -54,15 +54,15 @@ namespace ProgressiveScroll
 		public void Render(DrawingContext drawingContext)
 		{
 			NormalizedSnapshotSpanCollection bookmarks = GetBookmarks();
-			DrawMarkers(drawingContext, bookmarks, Colors.BookmarksBrush, 5);
+			DrawMarkers(drawingContext, bookmarks, Colors.BookmarksBrush, true, 0, 3);
 
 			NormalizedSnapshotSpanCollection breakpoints = GetBreakpoints();
-			DrawMarkers(drawingContext, breakpoints, Colors.BreakpointsBrush, 5);
+			DrawMarkers(drawingContext, breakpoints, Colors.BreakpointsBrush, false, 3, 3);
 
 			if (Options.ErrorsEnabled)
 			{
 				NormalizedSnapshotSpanCollection errors = GetErrors();
-				DrawMarkers(drawingContext, errors, Colors.ErrorsBrush, 3);
+				DrawMarkers(drawingContext, errors, Colors.ErrorsBrush, true, -3, 3);
 			}
 		}
 
@@ -118,12 +118,13 @@ namespace ProgressiveScroll
 			return new NormalizedSnapshotSpanCollection(unnormalizederrors);
 		}
 
-		private void DrawMarkers(DrawingContext drawingContext, NormalizedSnapshotSpanCollection markers, Brush brush, double markerWidth)
+		private void DrawMarkers(DrawingContext drawingContext, NormalizedSnapshotSpanCollection markers, Brush brush, bool right, short xOfs, short markerWidth)
 		{
 			if (markers.Count > 0)
 			{
 				double yTop = Math.Floor(_scrollBar.GetYCoordinateOfBufferPosition(markers[0].Start)) + markerStartOffset;
 				double yBottom = Math.Ceiling(_scrollBar.GetYCoordinateOfBufferPosition(markers[0].End)) + markerEndOffset;
+				double x = right ? _scrollBar.Width - markerWidth + xOfs : xOfs;
 
 				for (int i = 1; i < markers.Count; ++i)
 				{
@@ -131,9 +132,8 @@ namespace ProgressiveScroll
 					if (yBottom < y)
 					{
 						drawingContext.DrawRectangle(
-							brush,
-							null,
-							new Rect(_scrollBar.Width - markerWidth, yTop, markerWidth, yBottom - yTop));
+							brush, null,
+							new Rect(x, yTop, markerWidth, yBottom - yTop));
 
 						yTop = y;
 					}
@@ -142,9 +142,8 @@ namespace ProgressiveScroll
 				}
 
 				drawingContext.DrawRectangle(
-					brush,
-					null,
-					new Rect(_scrollBar.Width - markerWidth, yTop, markerWidth, yBottom - yTop));
+					brush, null,
+					new Rect(x, yTop, markerWidth, yBottom - yTop));
 			}
 		}
 	}
