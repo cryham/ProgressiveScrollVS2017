@@ -1,20 +1,25 @@
-This is a fork of [ProgressiveScroll](https://marketplace.visualstudio.com/items?itemName=freaksken.ProgressiveScroll) updated to work with VS 2017 (it fixes annoying exception thrown, when starting Visual Studio project). It replaces the scrollbar with a graphic representation of the code.
+CryHam: My fork has changes for smaller and separated marks, details in [my commits](https://github.com/cryham/ProgressiveScrollVS2017/commits?author=cryham).
 
-**Features:**
 
-* Double clicking highlights the selected word in the editor and the scrollbar.
-* Pressing Escape clears the highlights.
-* Coloring options for whitespace, comments, strings, file changes, highlights, bookmarks, breakpoints and errors. These can be found in Tools > Options > Fonts and Colors.
-* Adjustable width (This and other settings can be found under Tools > Options > Progressive Scroll).
-* Uses the space that is usually wasted in the bottom right corner of the editor (only in VS2010) and hides the splitter control in the top right corner.
+This is a fork of ProgressiveScroll updated to work with VS 2017, original fixes [here](https://github.com/akaStiX/ProgressiveScrollVS2017).
 
-**Warning!** Does not work well with word wrap.
 
-Changelog:
-* 0.9.0 
-  * Updated to support Visual Studio 2017
-* 0.9.1
-  * Updated to incorporate compatibility with new releases of Visual Studio 2017, including Enterprise Edition
+**About**
 
-  
-Support for Visual Studio versions older than 2017 is deprecated, please use original plugin [here](https://marketplace.visualstudio.com/items?itemName=freaksken.ProgressiveScroll)
+It replaces the scrollbar with a graphic representation of the code (1 pixel per character).
+
+It also shows bookmarks, find matches, breakpoints, errors and change marks (on margin).
+
+
+**Features**
+
+* Double clicking highlights the selected word in the editor and the scrollbar. Pressing Escape clears the highlights.
+* Coloring options for whitespace, comments, strings, file changes, highlights, bookmarks, breakpoints and errors. These are in Tools > Options > Fonts and Colors, names begin with Progressive Scroll.
+* Adjustable width and other settings under Tools > Options > Progressive Scroll).
+
+Warning! Does not work well with word wrap.
+
+
+Support for Visual Studio versions older than 2017 is deprecated, please use original plugin:
+
+with my changes [here](https://github.com/cryham/progressive-scroll/) or without [here](https://marketplace.visualstudio.com/items?itemName=freaksken.ProgressiveScroll).
