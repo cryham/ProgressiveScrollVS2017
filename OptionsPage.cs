@@ -20,6 +20,8 @@ namespace ProgressiveScroll
 		public const string SplitterEnabled = "SplitterEnabled";
 		public const string ErrorsEnabled = "ErrorsEnabled";
 		public const string AltHighlight = "AltHighlight";
+
+		public const string FindMarkSize = "FindMarkSize";
 		public const string MatchCase = "MatchCase";
 		public const string MatchWholeWord = "MatchWholeWord";
 	}
@@ -31,13 +33,16 @@ namespace ProgressiveScroll
 	{
 		private int _scrollBarWidth = 128;
 		private bool _renderTextEnabled = true;
-		private double _cursorOpacity = 0.125;
+		private double _cursorOpacity = 0.25;
 		private bool _cursorBorderEnabled = false;
 		private bool _splitterEnabled = false;
 		private bool _errorsEnabled = false;
 		private bool _altHighlight = false;
+
+		private int _FindMarkSize = 1;
 		private bool _matchCase = true;
 		private bool _matchWholeWord = true;
+
 
 		[Category("General")]
 		[DisplayName("Width")]
@@ -102,6 +107,16 @@ namespace ProgressiveScroll
 			set { _altHighlight = value; }
 		}
 
+
+		[Category("General")]
+		[DisplayName("Find mark size")]
+		[Description("Size of find mark occurrences.")]
+		public int FindMarkSize
+		{
+			get { return _FindMarkSize; }
+			set { _FindMarkSize = value; }
+		}
+
 		[Category("General")]
 		[DisplayName("Match Case")]
 		[Description("Only highlight case-sensitive matches for double-clicked text.")]
@@ -120,6 +135,7 @@ namespace ProgressiveScroll
 			set { _matchWholeWord = value; }
 		}
 
+
 		protected override void OnApply(PageApplyEventArgs e)
 		{
 			base.OnApply(e);
@@ -135,6 +151,8 @@ namespace ProgressiveScroll
 				Options.SplitterEnabled = _splitterEnabled;
 				Options.ErrorsEnabled = _errorsEnabled;
 				Options.AltHighlight = _altHighlight;
+				
+				Options.FindMarkSize = _FindMarkSize;
 				Options.MatchCase = _matchCase;
 				Options.MatchWholeWord = _matchWholeWord;
 
@@ -158,6 +176,8 @@ namespace ProgressiveScroll
 		public static bool SplitterEnabled;
 		public static bool ErrorsEnabled;
 		public static bool AltHighlight;
+		
+		public static int FindMarkSize;
 		public static bool MatchCase;
 		public static bool MatchWholeWord;
 
@@ -177,6 +197,8 @@ namespace ProgressiveScroll
 			SplitterEnabled = (bool)props.Item(OptionNames.SplitterEnabled).Value;
 			ErrorsEnabled = (bool)props.Item(OptionNames.ErrorsEnabled).Value;
 			AltHighlight = (bool)props.Item(OptionNames.AltHighlight).Value;
+
+			FindMarkSize = (int)props.Item(OptionNames.FindMarkSize).Value;
 			MatchCase = (bool)props.Item(OptionNames.MatchCase).Value;
 			MatchWholeWord = (bool)props.Item(OptionNames.MatchWholeWord).Value;
 		}
