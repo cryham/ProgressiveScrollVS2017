@@ -34,6 +34,7 @@ namespace ProgressiveScroll
 		private int _bitmapStride;
 		private byte[] _bitmapPixels;
 
+		private readonly int _margin = 6;
 		private int _width;
 		private int _height;
 		private int _stride;
@@ -50,7 +51,7 @@ namespace ProgressiveScroll
 
 		static private Dictionary<string, byte> _keywords = new Dictionary<string, byte>
 		{
-			{ "__alignof", 0 }, { "__asm", 0 },
+			{ "__alignof", 0 }, { "__asm", 0 }, { "auto", 0 },
 			{ "bool", 0 }, { "break", 0 },
 			{ "case", 0 }, { "catch", 0 }, { "char", 0 }, { "class", 0 }, { "const", 0 }, { "const_cast", 0 }, { "continue", 0 },
 			{ "default", 0 }, { "delete", 0 }, { "do", 0 }, { "double", 0 }, { "dynamic_cast", 0 },
@@ -429,15 +430,15 @@ namespace ProgressiveScroll
 
 		private void SetPixel(int x, int y, Color c)
 		{
-			// Not entirely accurate, some pixels should be split between lines, but close enough
+			x += _margin;
 			y = (int)(y * _lineRatio);
-			if (x < _width && y < _height)
+			if (x < _width - _margin && y < _height)
 			{
 				int pixelOffset = y * _stride + x * 4;
-				_pixels[pixelOffset] += (byte)(_lineRatio * c.B);
-				_pixels[pixelOffset + 1] += (byte)(_lineRatio * c.G);
-				_pixels[pixelOffset + 2] += (byte)(_lineRatio * c.R);
-				_pixels[pixelOffset + 3] += (byte)(_lineRatio * 255);
+				_pixels[pixelOffset] = c.B;
+				_pixels[pixelOffset + 1] = c.G;
+				_pixels[pixelOffset + 2] = c.R;
+				_pixels[pixelOffset + 3] = 255;
 			}
 		}
 
